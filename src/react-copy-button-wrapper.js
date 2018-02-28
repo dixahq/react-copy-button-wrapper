@@ -12,11 +12,17 @@ const select = require('select')
 const browser = require('bowser')
 const PropTypes = require('prop-types')
 
-class ReactCopyButtonWrapper extends React.Component {
+
+export default class ReactCopyButtonWrapper extends React.Component {
   constructor (props) {
     super(props)
     this.onAfterCopy = this.props.onAfterCopy || (() => {})
     this.onErrorCopy = this.props.onErrorCopy || (() => {})
+    this.supportedClipboardApi = this.supportedClipboardApi.bind(this);
+    this.getCopyText = this.getCopyText.bind(this);
+    this.renderUsingZeroClipboard = this.renderUsingZeroClipboard.bind(this);
+    this.generateCopyEvent = this.generateCopyEvent.bind(this);
+    this.execCopy = this.execCopy.bind(this);
   }
 
   supportedClipboardApi () {
@@ -115,6 +121,7 @@ class ReactCopyButtonWrapper extends React.Component {
     })
   }
 }
+
 ReactCopyButtonWrapper.displayName = 'ReactCopyButtonWrapper'
 ReactCopyButtonWrapper.propTypes = {
   text: PropTypes.string,
@@ -126,4 +133,3 @@ ReactCopyButtonWrapper.propTypes = {
   children: PropTypes.node
 }
 
-module.exports = ReactCopyButtonWrapper
